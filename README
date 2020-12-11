@@ -1,0 +1,47 @@
+Executar programa com o comando:
+
+./programa <diretorio do dicionario> <diretorio do texto>
+
+================================================================================
+
+JUSTIFICATIVAS DAS ESTRUTURAS UTILIZADAS:
+
+Para armazenar as palavras do dicionario eu utilizei um unordered set pois ele
+atribui uma chave unica para cada palavra adicionada. Sendo assim, um método 
+para encontrar uma palavra nesse unordered set tem complexidade constante, já que
+a chave funciona como um indice para a palavra. O método não precisa percorrer a
+estrutura.
+
+Eu utilizei um estrutura que contém uma string para a palavra errada e uma pilha de
+strings para conter todas as opcoes de possiveis correção para essa palavra:
+
+struct PalavraErrada{
+	std::string errada;
+	Pilha <std::string> opcoes;
+};
+
+E para guardar todas essas estruturas eu utilizei uma pilha do tipo PalavraErrada:
+
+Pilha <PalavraErrada> pilhaDeErradas;
+
+Eu escolhi a estrutura de pilha pois o único intuito do programa é imprimir as
+palavras erradas e suas correções, então bastava eu ir "empilhando" todas as palavras
+e ao final imprimir a palavra do topo da pilha e suas correções, e retirar ela da
+pilha para imprimir a seguinte. Esses métodos também tem complexidade constante.
+
+================================================================================
+
+PROBLEMAS COM O CÓDIGO:
+
+1- Professor, para localizar as opções de correção eu usei o levenshtein em todas as palavras do dicionario para cada palavra errada, ou seja, 300000 comparações com cada
+palavra errada. Não sei se era assim que era para fazer. Só o texto do imd.txt demora
+por volta de 5:00 minutos para ser analisado. Não consegui imaginar um método mais
+rápido para achar as opções de corração da palavra.
+
+2- Criei um método "inicialParaMinuscula()" para transformar a primeira em letra
+minuscula. Ele funciona para qualquer string que eu instancio no código, porém não
+funciona em strings lida do arquivo, então eu deixei ele desabilitado.
+
+3- Quando executa o arquivo dom-casmurro.txt o programa é abortado e a seguinte
+mensagem aparece: "terminate called after throwing an instance of 'std::length_error'"
+
